@@ -13,10 +13,12 @@ string DelimiterIndianStateCensusDataFilePath = @"C:\Users\Admin\Desktop\Vishnu\
 
 //censusAnalyser.ReadCsvFile();
 string IndianStateCensusHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
+string IndianStateCensusHeaders2 = "States,population,areaInSqKm,densityPerSqKm";
+
 
 while (true)
 {
-    Console.WriteLine("Please choose the option: \n1)UC1 - Check the number of records in CSV file\n2)UC1.2 - Given wrong file Path\n3)UC1.3 - Giving wrong text file as Input\n4)UC1.4-Throw exception if Delimeter is Wrong");
+    Console.WriteLine("Please choose the option: \n1)UC1 - Check the number of records in CSV file\n2)UC1.2 - Given wrong file Path\n3)UC1.3 - Giving wrong text file as Input\n4)UC1.4-Throw exception if Delimeter is Wrong\n5)UC1.5-Throw exception if Header is Wrong");
     int option = Convert.ToInt32(Console.ReadLine());
     switch (option)
     {
@@ -49,6 +51,16 @@ while (true)
             {
                 IndianCensusAdapter a1 = new IndianCensusAdapter();
                 totalRecord = a1.LoadCensusData(DelimiterIndianStateCensusDataFilePath, IndianStateCensusHeaders);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            break;
+        case 5:
+            try
+            {
+                totalRecord = censusAnalyser.LoadCensusData(Country.INDIA, csvPath, IndianStateCensusHeaders2);
             }
             catch (CensusAnalyserException e)
             {
