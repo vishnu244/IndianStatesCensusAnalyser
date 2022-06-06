@@ -15,6 +15,7 @@ namespace IndianStateCensusAnalyserTests
         string IndiaStateCodeCsvFilePath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\IndiaStateCode.csv";
         string IndianStateCodeDataWrongFilePath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\IndianStateCodeDataWrongFilePath.csv";
         string IndianStateCodeDataWrongFileEntension = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStateCensusAnalyserTests\IndianStateCode.txt";
+        string DelimeterIndiaStateCode = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\DelimeterIndiaStateCode.csv";
 
 
         string IndianStateCensusHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
@@ -130,6 +131,21 @@ namespace IndianStateCensusAnalyserTests
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual("Invalid File Type", e.Message);
+            }
+        }
+
+        //UC 2.4
+        [Test]
+        public void GivenIndiaStateCode_IncorrectDelimiter_ShouldThrowCustomException()
+        {
+            try
+            {
+                IndianCensusAdapter a1 = new IndianCensusAdapter();
+                stateRecord = a1.LoadCensusData(DelimeterIndiaStateCode, IndiaStateCodeHeaders);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual("File Contains Wrong Delimiter", e.Message);
             }
         }
     }
