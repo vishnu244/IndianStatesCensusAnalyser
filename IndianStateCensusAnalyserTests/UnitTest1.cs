@@ -14,6 +14,7 @@ namespace IndianStateCensusAnalyserTests
         string DelimiterIndianStateCensusDataFilePath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\DelimiterIndiaStateCensusData.csv";
         string IndiaStateCodeCsvFilePath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\IndiaStateCode.csv";
         string IndianStateCodeDataWrongFilePath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\IndianStateCodeDataWrongFilePath.csv";
+        string IndianStateCodeDataWrongFileEntension = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStateCensusAnalyserTests\IndianStateCode.txt";
 
 
         string IndianStateCensusHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
@@ -115,6 +116,20 @@ namespace IndianStateCensusAnalyserTests
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual("File Not Found", e.Message);
+            }
+        }
+
+        //UC 2.3
+        [Test]
+        public void GivenIndiaStateCode_TypeIncorret_ShouldThrowCustomException()
+        {
+            try
+            {
+                stateRecord = censusAnalyser.LoadCensusData(Country.INDIA, IndianStateCodeDataWrongFileEntension, IndiaStateCodeHeaders);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual("Invalid File Type", e.Message);
             }
         }
     }
