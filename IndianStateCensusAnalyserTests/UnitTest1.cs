@@ -10,6 +10,8 @@ namespace IndianStateCensusAnalyserTests
     {
         string csvPath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\IndiaStateCensusData.csv";
         string IndianStateCensusDataWrongFilePath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStatesCensusAnalyser\IndiaStateCensus.csv";
+        string IndianStateCensusDataWrongExtensionFilePath = @"C:\Users\Admin\Desktop\Vishnu\IndianStatesCensusAnalyser\IndianStateCensusAnalyserTests\IndiaCensusTextFile.txt";
+
 
         string IndianStateCensusHeaders = "State,Population,AreaInSqKm,DensityPerSqKm";
         CensusAnalyser censusAnalyser;
@@ -30,8 +32,7 @@ namespace IndianStateCensusAnalyserTests
             Assert.AreEqual(29, totalRecord.Count);
         }
 
-        //1.2
-        
+        //1.2        
         [Test]
         public void GivenIndianCensusDataFile_IfIncorret_ShouldThrowCustomException()
         {
@@ -42,6 +43,20 @@ namespace IndianStateCensusAnalyserTests
             catch (CensusAnalyserException e)
             {
                 Assert.AreEqual("File Not Found", e.Message);
+            }
+        }
+
+        //1.3
+        [Test]
+        public void GivenIndianCensusDataFile_TypeIncorret_ShouldThrowCustomException()
+        {
+            try
+            {
+                totalRecord = censusAnalyser.LoadCensusData(Country.INDIA, IndianStateCensusDataWrongExtensionFilePath, IndianStateCensusHeaders);
+            }
+            catch (CensusAnalyserException e)
+            {
+                Assert.AreEqual("Invalid File Type", e.Message);
             }
         }
     }
